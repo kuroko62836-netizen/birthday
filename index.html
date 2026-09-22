@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 💙</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sacramento&display=swap"
+        rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blueCustom: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        script: ['"Sacramento"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(186, 230, 253, 0.5);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.6);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .floating-element {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 35px rgba(14, 165, 233, 0.8);
+            }
+        }
+
+        .glow-effect {
+            animation: pulse-glow 3s infinite;
+        }
+
+        .polaroid {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .polaroid:hover {
+            transform: translateY(-8px) scale(1.03) rotate(0deg) !important;
+            box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.3), 0 8px 10px -6px rgba(14, 165, 233, 0.2);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-br from-blue-50 via-sky-100 to-blue-200 text-slate-800 min-h-screen relative overflow-x-hidden selection:bg-blue-400 selection:text-white">
+
+    <!-- Cute Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="floating-element text-blue-300 text-2xl left-[10%]"
+            style="animation-delay: 0s; animation-duration: 7s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-element text-sky-400 text-xl left-[25%]"
+            style="animation-delay: 2s; animation-duration: 9s;"><i class="fa-solid fa-star"></i></div>
+        <div class="floating-element text-blue-400 text-3xl left-[40%]"
+            style="animation-delay: 1s; animation-duration: 6s;"><i class="fa-solid fa-circle text-xs opacity-60"></i>
+        </div>
+        <div class="floating-element text-sky-300 text-2xl left-[60%]"
+            style="animation-delay: 3s; animation-duration: 8s;"><i class="fa-solid fa-sparkles"></i></div>
+        <div class="floating-element text-blue-500 text-xl left-[75%]"
+            style="animation-delay: 1.5s; animation-duration: 10s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-element text-sky-400 text-2xl left-[90%]"
+            style="animation-delay: 4s; animation-duration: 7s;"><i class="fa-solid fa-star"></i></div>
+
+        <!-- Glowing Ambient Orbs -->
+        <div
+            class="absolute top-1/4 left-10 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse">
+        </div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"
+            style="animation-delay: 2s;"></div>
+    </div>
+
+    <header class="relative z-20 w-full max-w-6xl mx-auto px-6 py-6 flex justify-center items-center">
+        <div class="flex items-center space-x-2 glass-card px-5 py-2 rounded-full shadow-md">
+            <span
+                class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow glow-effect text-sm">
+                <i class="fa-solid fa-cake-candles"></i>
+            </span>
+            <span
+                class="font-bold text-lg tracking-wide bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">September
+                23</span>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-5xl mx-auto px-6 pb-24">
+
+        <!-- Hero Section -->
+        <section class="text-center py-8 md:py-12">
+            <div
+                class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-200/70 border border-blue-300 text-blue-800 text-sm font-semibold tracking-wider uppercase animate-bounce">
+                ✨ Happy Birthday! ✨
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4">
+                Happy Birthday <br class="sm:hidden" />
+                <span class="font-script text-6xl md:text-8xl text-blue-600 block mt-2 drop-shadow-sm">To My Best
+                    Friend</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">
+                Celebrating an amazing person born on <span class="font-bold text-blue-700">September 23, 2001</span>.
+                Have the best day ever! 💙
+            </p>
+
+            <!-- Live Countdown Clock -->
+            <div class="mt-10 max-w-xl mx-auto glass-card p-6 rounded-3xl shadow-xl glow-effect">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-blue-800 mb-4">
+                    <i class="fa-regular fa-clock mr-1"></i> Countdown to September 23
+                </h3>
+                <div class="grid grid-cols-4 gap-3 text-center">
+                    <div class="bg-white/80 rounded-2xl p-3 shadow-sm border border-blue-100">
+                        <span id="days" class="text-2xl md:text-4xl font-extrabold text-blue-600 block">00</span>
+                        <span class="text-xs text-slate-500 uppercase font-semibold">Days</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-3 shadow-sm border border-blue-100">
+                        <span id="hours" class="text-2xl md:text-4xl font-extrabold text-blue-600 block">00</span>
+                        <span class="text-xs text-slate-500 uppercase font-semibold">Hours</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-3 shadow-sm border border-blue-100">
+                        <span id="minutes" class="text-2xl md:text-4xl font-extrabold text-blue-600 block">00</span>
+                        <span class="text-xs text-slate-500 uppercase font-semibold">Mins</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-3 shadow-sm border border-blue-100">
+                        <span id="seconds" class="text-2xl md:text-4xl font-extrabold text-blue-600 block">00</span>
+                        <span class="text-xs text-slate-500 uppercase font-semibold">Secs</span>
+                    </div>
+                </div>
+                <div id="birthdayAlert" class="mt-4 text-sm font-bold text-blue-600 hidden">
+                    🎉 IT'S YOUR BIRTHDAY TODAY! LET'S CELEBRATE! 🎉
+                </div>
+            </div>
+        </section>
+
+        <!-- Photos Section -->
+        <section class="my-16">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Our Story 🌍</h2>
+                <p class="text-slate-600 mt-2">Best friends, one screen at a time</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Photo 1 -->
+                <div class="polaroid bg-white p-4 pb-6 rounded-2xl shadow-xl rotate-[-2deg] border border-blue-100 cursor-pointer"
+                    onclick="openPhotoModal(this)">
+                    <div class="w-full h-64 overflow-hidden rounded-xl bg-blue-50 relative">
+                        <img src="photo.jpg" alt="Memory 1"
+                            class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center font-script text-2xl text-slate-700">
+                        "Always smiling ✨"
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="polaroid bg-white p-4 pb-6 rounded-2xl shadow-xl rotate-[1.5deg] border border-blue-100 cursor-pointer"
+                    onclick="openPhotoModal(this)">
+                    <div class="w-full h-64 overflow-hidden rounded-xl bg-blue-50 relative">
+                        <img src="photo3.jpg" alt="Memory 2"
+                            class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center font-script text-2xl text-slate-700">
+                        "Great vibes 💙"
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="polaroid bg-white p-4 pb-6 rounded-2xl shadow-xl rotate-[-1deg] border border-blue-100 cursor-pointer"
+                    onclick="openPhotoModal(this)">
+                    <div class="w-full h-64 overflow-hidden rounded-xl bg-blue-50 relative">
+                        <img src="photo2.jpg" alt="Memory 3"
+                            class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center font-script text-2xl text-slate-700">
+                        "So wonderful 🌟"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Letter Section -->
+        <section class="my-16 max-w-3xl mx-auto">
+            <div class="glass-card p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden border border-blue-200">
+                <div
+                    class="absolute -right-10 -bottom-10 text-blue-200 text-9xl font-serif opacity-30 pointer-events-none select-none">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <span
+                        class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-envelope-open-heart"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">A Note For You</h3>
+                        <p class="text-xs text-blue-600 font-semibold">Happy Birthday!</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-slate-700 text-base md:text-lg leading-relaxed font-normal">
+                    <p>Dear Best Friend,</p>
+                    <p>Happy Birthday! September 23 is such a special day because it's the day someone as kind, fun, and
+                        wonderful as you was born back in 2001. You always bring good energy and happiness to everyone
+                        around you.</p>
+                    <p>Thank you for being such a great friend, for always being there to talk to, and for all the fun
+                        memories we share. I hope this year brings you success, great adventures, and all the happiness
+                        you want.</p>
+                    <p class="pt-4 font-script text-4xl text-blue-600 font-bold">Have an amazing 25th birthday! 💙🥂</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Surprise Gift Box Section -->
+        <section class="my-16 max-w-3xl mx-auto text-center">
+            <div class="glass-card p-8 md:p-10 rounded-3xl shadow-xl border border-blue-200">
+                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Your Birthday Surprise Box 🎁</h3>
+                <p class="text-slate-600 mb-8">Tap the gift box below to unwrap your special message!</p>
+
+                <!-- Gift Box Element -->
+                <div id="giftBox" onclick="openGift()"
+                    class="cursor-pointer inline-block transform hover:scale-110 transition duration-300 group">
+                    <div
+                        class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-3xl shadow-2xl flex items-center justify-center relative glow-effect mx-auto">
+                        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-8 bg-blue-200/80 shadow-inner"></div>
+                        <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-blue-200/80 shadow-inner"></div>
+                        <i
+                            class="fa-solid fa-gift text-white text-5xl z-10 group-hover:rotate-12 transition transform"></i>
+                    </div>
+                    <span
+                        class="block mt-4 text-sm font-bold text-blue-700 uppercase tracking-widest animate-pulse">Click
+                        to Unwrap!</span>
+                </div>
+
+                <!-- Hidden Surprise Message & Telegram NFT Gift Showcase -->
+                <div id="surpriseMessage"
+                    class="hidden mt-8 p-6 bg-white/90 rounded-2xl shadow-inner border border-blue-200 animate-fade-in text-left">
+                    <h4 class="text-2xl font-bold text-blue-600 font-script mb-2 text-center">🎉 Surprise Wish Unlocked!
+                        🎉</h4>
+                    <p class="text-slate-700 text-base md:text-lg font-medium text-center mb-6">
+                        "Wishing you a year filled with wonderful surprises, blue skies, great health, and all your
+                        dreams coming true. You deserve the best today and always!"
+                    </p>
+
+                    <!-- Telegram NFT Gift Card Inside Surprise Box -->
+                    <div
+                        class="bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-200 rounded-2xl p-4 md:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-md shrink-0">
+                                🏝️
+                            </div>
+                            <div>
+                                <span
+                                    class="bg-blue-200 text-blue-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full uppercase">Telegram
+                                    NFT Gift</span>
+                                <h5 class="font-bold text-slate-900 text-lg mt-1">Pool Float #38,997</h5>
+                                <p class="text-xs text-slate-500">Edition: Palm Beach 🌴 (Blue Vibe)</p>
+                            </div>
+                        </div>
+                        <a href="https://t.me/nft/PoolFloat-38997" target="_blank"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow transition flex items-center space-x-2 shrink-0">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>View on Telegram</span>
+                        </a>
+                    </div>
+
+                    <div class="text-center mt-6">
+                        <button onclick="triggerMassiveConfetti()"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full font-bold shadow-lg transition text-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> More Confetti!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="relative z-10 text-center py-8 text-slate-500 text-sm border-t border-blue-200/60">
+        <p>Made By Kairoo especially for September 23, 2001 • Have the best birthday ever!</p>
+    </footer>
+
+    <!-- Photo Zoom Modal -->
+    <div id="photoModal"
+        class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-4"
+        onclick="closePhotoModal()">
+        <div class="relative max-w-lg w-full bg-white p-4 rounded-3xl shadow-2xl" onclick="event.stopPropagation()">
+            <button onclick="closePhotoModal()"
+                class="absolute -top-3 -right-3 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="modalImg" src="" alt="Zoomed Memory" class="w-full h-96 object-cover rounded-2xl">
+            <div class="text-center mt-4 font-script text-3xl text-blue-700" id="modalCaption">Precious Memory</div>
+        </div>
+    </div>
+
+    <script>
+        // --- Countdown Timer Logic targeting September 23 ---
+        function updateCountdown() {
+            const now = new Date();
+            let currentYear = now.getFullYear();
+
+            let targetDate = new Date(currentYear, 8, 23, 0, 0, 0); // Month 8 is September
+
+            if (now > new Date(currentYear, 8, 23, 23, 59, 59)) {
+                targetDate = new Date(currentYear + 1, 8, 23, 0, 0, 0);
+            }
+
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                document.getElementById('birthdayAlert').classList.remove('hidden');
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- Initial Confetti Burst on Load ---
+        window.addEventListener('load', () => {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#0ea5e9', '#38bdf8', '#7dd3fc', '#ffffff', '#0284c7']
+            });
+        });
+
+        // --- Gift Box Surprise Interaction ---
+        function openGift() {
+            const giftBox = document.getElementById('giftBox');
+            const surpriseMessage = document.getElementById('surpriseMessage');
+
+            giftBox.classList.add('animate-bounce');
+            setTimeout(() => {
+                giftBox.style.display = 'none';
+                surpriseMessage.classList.remove('hidden');
+                triggerMassiveConfetti();
+            }, 500);
+        }
+
+        // --- Massive Confetti Effect ---
+        function triggerMassiveConfetti() {
+            confetti({
+                particleCount: 120,
+                spread: 100,
+                origin: { y: 0.5 },
+                colors: ['#0ea5e9', '#38bdf8', '#bae6fd', '#ffffff', '#0284c7', '#0369a1']
+            });
+        }
+
+        // --- Photo Modal Viewer ---
+        function openPhotoModal(element) {
+            const img = element.querySelector('img');
+            const caption = element.querySelector('.font-script').innerText;
+
+            document.getElementById('modalImg').src = img.src;
+            document.getElementById('modalCaption').innerText = caption;
+            document.getElementById('photoModal').classList.remove('hidden');
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
