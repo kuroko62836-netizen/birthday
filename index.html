@@ -73,12 +73,9 @@
         }
 
         @keyframes pulse-glow {
-
-            0%,
-            100% {
+            0%, 100% {
                 box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
             }
-
             50% {
                 box-shadow: 0 0 35px rgba(14, 165, 233, 0.8);
             }
@@ -101,6 +98,52 @@
 
 <body
     class="bg-gradient-to-br from-blue-50 via-sky-100 to-blue-200 text-slate-800 min-h-screen relative overflow-x-hidden selection:bg-blue-400 selection:text-white">
+
+    <!-- MIDNIGHT LOCK SCREEN OVERLAY (Shown before 12 AM on Sept 23) -->
+    <div id="midnightLockScreen" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
+        <div class="max-w-md w-full glass-card p-8 rounded-3xl shadow-2xl border border-blue-400/30 bg-slate-900/80 text-white relative overflow-hidden glow-effect">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl"></div>
+            
+            <div class="w-20 h-20 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-2xl mx-auto flex items-center justify-center text-3xl shadow-lg mb-6 animate-bounce">
+                <i class="fa-solid fa-moon text-white"></i>
+            </div>
+            
+            <span class="bg-blue-500/20 text-blue-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-400/30">
+                Midnight Countdown Lock
+            </span>
+            
+            <h2 class="text-3xl font-extrabold mt-4 mb-2 text-white">Shhh... Almost Time! 🌙</h2>
+            <p class="text-slate-300 text-sm mb-6">
+                The grand celebration unlocks right when the clock strikes <span class="text-blue-400 font-bold">12:00 AM on September 23</span>! Come back then or watch the countdown below.
+            </p>
+
+            <!-- Mini Midnight Countdown Box -->
+            <div class="grid grid-cols-4 gap-2 mb-6 bg-slate-950/50 p-3 rounded-2xl border border-blue-500/20">
+                <div>
+                    <span id="lockDays" class="text-xl font-bold text-blue-400 block">00</span>
+                    <span class="text-[10px] text-slate-400 uppercase">Days</span>
+                </div>
+                <div>
+                    <span id="lockHours" class="text-xl font-bold text-blue-400 block">00</span>
+                    <span class="text-[10px] text-slate-400 uppercase">Hours</span>
+                </div>
+                <div>
+                    <span id="lockMinutes" class="text-xl font-bold text-blue-400 block">00</span>
+                    <span class="text-[10px] text-slate-400 uppercase">Mins</span>
+                </div>
+                <div>
+                    <span id="lockSeconds" class="text-xl font-bold text-blue-400 block">00</span>
+                    <span class="text-[10px] text-slate-400 uppercase">Secs</span>
+                </div>
+            </div>
+
+            <!-- Bypass Button for Testing -->
+            <button onclick="bypassMidnightLock()" class="w-full bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition transform active:scale-95 text-sm flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-key"></i>
+                <span>Bypass (For Testing Preview)</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Cute Animated Background Elements -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -347,6 +390,49 @@
     </div>
 
     <script>
+        // --- Midnight Check & Lock Logic ---
+        function checkMidnightStatus() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            
+            // Set target to Sept 23 of current year at 00:00:00
+            const birthdayMidnight = new Date(currentYear, 8, 23, 0, 0, 0);
+            const birthdayEnd = new Date(currentYear, 8, 23, 23, 59, 59);
+
+            const lockScreen = document.getElementById('midnightLockScreen');
+
+            // If it's already past the birthday or explicitly bypassed in session storage
+            if (now > birthdayEnd || sessionStorage.getItem('bypassedMidnight') === 'true') {
+                if (lockScreen) {
+                    lockScreen.style.opacity = '0';
+                    setTimeout(() => lockScreen.remove(), 700);
+                }
+                return;
+            }
+
+            // If it's before midnight on September 23
+            if (now < birthdayMidnight) {
+                if (lockScreen) lockScreen.classList.remove('hidden');
+            } else {
+                // Exactly on Sept 23! Auto-unlock with confetti
+                if (lockScreen && lockScreen.style.opacity !== '0') {
+                    lockScreen.style.opacity = '0';
+                    setTimeout(() => lockScreen.remove(), 700);
+                    triggerMassiveConfetti();
+                }
+            }
+        }
+
+        function bypassMidnightLock() {
+            sessionStorage.setItem('bypassedMidnight', 'true');
+            const lockScreen = document.getElementById('midnightLockScreen');
+            if (lockScreen) {
+                lockScreen.style.opacity = '0';
+                setTimeout(() => lockScreen.remove(), 700);
+            }
+            triggerMassiveConfetti();
+        }
+
         // --- Countdown Timer Logic targeting September 23 ---
         function updateCountdown() {
             const now = new Date();
@@ -361,11 +447,20 @@
             const diff = targetDate - now;
 
             if (diff <= 0) {
+                // Main page countdown elements
                 document.getElementById('days').innerText = '00';
                 document.getElementById('hours').innerText = '00';
                 document.getElementById('minutes').innerText = '00';
                 document.getElementById('seconds').innerText = '00';
                 document.getElementById('birthdayAlert').classList.remove('hidden');
+                
+                // Lock screen countdown elements
+                document.getElementById('lockDays').innerText = '00';
+                document.getElementById('lockHours').innerText = '00';
+                document.getElementById('lockMinutes').innerText = '00';
+                document.getElementById('lockSeconds').innerText = '00';
+                
+                checkMidnightStatus();
                 return;
             }
 
@@ -374,10 +469,19 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+            // Update main page countdown
             document.getElementById('days').innerText = String(days).padStart(2, '0');
             document.getElementById('hours').innerText = String(hours).padStart(2, '0');
             document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
             document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+            // Update lock screen countdown
+            document.getElementById('lockDays').innerText = String(days).padStart(2, '0');
+            document.getElementById('lockHours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('lockMinutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('lockSeconds').innerText = String(seconds).padStart(2, '0');
+
+            checkMidnightStatus();
         }
 
         setInterval(updateCountdown, 1000);
@@ -385,12 +489,15 @@
 
         // --- Initial Confetti Burst on Load ---
         window.addEventListener('load', () => {
-            confetti({
-                particleCount: 80,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#0ea5e9', '#38bdf8', '#7dd3fc', '#ffffff', '#0284c7']
-            });
+            checkMidnightStatus();
+            if (sessionStorage.getItem('bypassedMidnight') === 'true' || new Date() >= new Date(new Date().getFullYear(), 8, 23, 0, 0, 0)) {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#0ea5e9', '#38bdf8', '#7dd3fc', '#ffffff', '#0284c7']
+                });
+            }
         });
 
         // --- Gift Box Surprise Interaction ---
